@@ -1,0 +1,179 @@
+<template>
+   <div class="login-wrapper columns is-gapless">
+
+    <!-- Form section -->
+    <div class="column is-7">
+        <div class="hero is-fullheight">
+            <div class="hero-heading">
+                <!-- Logo -->
+                <div class="section has-text-centered">
+                    <router-link to="/"><img class="top-logo" v-bind:src="iconsrc" alt="Brand"></router-link>
+                </div>
+                <!-- Don't have an account yet -->
+                <div class="no-account-link has-text-centered">
+                    <!-- <a href="https://cssninja.io/register">Don't have an account ? </a> -->
+                </div>
+            </div>
+            <div class="hero-body">
+                <div class="container">
+                    <div class="columns">
+                        <div class="column"></div>
+                        <div class="column is-5">
+                            <!-- Custom login -->
+
+    <div id="signin-form" class="login-form animated preFadeInLeft fadeInLeft">
+        <!-- Input -->
+        <div class="field pb-10">
+            <div class="control">
+                <input v-model="email" id="userSigninLogin" class="input is-large" type="text" name="login" placeholder="Enter your email" required="">
+            </div>
+        </div>
+        <!-- Input -->
+        <div class="field pb-20">
+            <div class="control">
+                <input v-model="password" id="userSigninPassword" class="input is-large" type="password" name="password" placeholder="Enter your password" required="">
+            </div>
+        </div>
+        <!-- Submit -->
+        <p class="control login">
+            <button @click="login" type="submit" class="button button-cta primary-btn btn-align-lg btn-outlined is-bold is-fullwidth rounded raised no-lh  will-load">
+                Log
+            </button>
+
+        </p>
+    </div>
+                            <!-- /Custom login -->
+
+                            <!-- Custom Reset Form -->
+                            <div id="partialUserResetForm">
+            <!-- Reset Form -->
+    <div id="recover-form" class="login-form animated preFadeInLeft fadeInLeft is-hidden">
+        <h2 class="title is-4 has-text-centered">Lost your Password ?</h2>
+        <!-- Input -->
+        <div class="field pb-20">
+            <div class="control">
+                <input id="userRestoreEmail" class="input is-large" type="email" name="email" placeholder="Enter your email" required="">
+            </div>
+        </div>
+        <!-- Submit -->
+        <p class="control login">
+            <button type="submit" class="button button-cta secondary-btn btn-align-lg btn-outlined is-bold is-fullwidth rounded raised no-lh will-load">
+                Restore password
+            </button>
+        </p>
+    </div>
+<!-- /Reset Form -->    </div>                            <!-- /Custom Reset Form -->
+
+                            <!-- Toggles -->
+                            <div id="recover" class="section forgot-password animated preFadeInLeft fadeInLeft">
+                                <p class="has-text-centered">
+                                    <a href="#">Lost your Password ?</a>
+
+                                </p>
+                                <br>
+                                <p>
+                                    <el-tooltip class="item" effect="light" content="使用github登录" placement="bottom">
+                                        <a href="https://github.com/login/oauth/authorize?client_id=7907f9e4308208fa04ca&scope=user:email">
+                                            <span class="icon" style="color: #333;">
+                                                <i class="fa fa-lg fa-github is-size-2"></i>
+                                            </span>
+                                        </a>
+                                    </el-tooltip>
+                                    <el-tooltip class="item" effect="light" content="使用qq登录" placement="bottom">
+                                        <a href="https://graph.qq.com/oauth2.0/authorize?response_type=code&client_id=1108836659&redirect_uri=http%3a%2f%2fverseit.top%2findex&state=1%scope=get_user_info,get_info">
+                                            <span class="icon" style="color: #333;">
+                                                <i class="fa fa-lg fa-qq is-size-2-5"></i>
+                                            </span>
+                                        </a>
+                                    </el-tooltip>
+
+                                </p>
+
+                            </div>
+
+                            <div id="back-to-login" class="section forgot-password animated preFadeInLeft fadeInLeft is-hidden">
+                                <p class="has-text-centered">
+                                    <a href="#">Back to Sign in</a>
+                                </p>
+                            </div>
+                            <!-- /Toggles -->
+                        </div>
+                        <div class="column"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /Form section -->
+
+
+    <!-- Image section (hidden on mobile) -->
+    <div class="column login-column is-5 is-hidden-mobile hero-banner register">
+      <router-view/>
+
+    </div>
+    <!-- /Image section -->
+</div>
+</template>
+
+<script>
+import userApi from "@/api/user";
+import { setToken, setInfo } from "@/utils/auto";
+import { EP } from "@/utils";
+import iconsrc from "@/assets/icon/logo-min.png";
+import {mapMutations} from 'vuex';
+export default {
+  name: "LoginIndex",
+  components: {},
+  data() {
+    return {
+      user: {
+        email: "",
+        password: ""
+      },
+      iconsrc:iconsrc
+    };
+  },
+  created() {},
+  methods: {
+    ...mapMutations(['changeLogin']),
+    login() {
+        let token = {
+            email:this.email,
+            userName:this.email,
+            password:this.password
+        }
+      // let token = {
+      //   token: EP({
+      //     email: this.email,
+      //     userName: this.email,
+      //     password: this.password
+      //   })
+      // };
+      userApi.login(token, response => {
+        console.log("resdata："+response.data);
+        this.userToken = 'Bearer '+ response.data.data.body.token;
+        this.changeLogin({Authorization:this.userToken});
+
+        // setToken(
+        //   EP({
+        //     email: this.email,
+        //     userName: this.email,
+        //     password: this.password,
+        //     id: response.data.userId,
+        //     //avatarPath
+        //   })
+        // );
+        // setInfo(JSON.stringify({ userName: response.data.userName }));
+
+        //this.$router.push("/");
+        window.location.href = "/";
+
+      });
+
+
+    }
+  }
+};
+</script>
+

@@ -1,0 +1,4 @@
+#用于mongodb中创建集合的操作
+use verseit;
+db.createCollection('user');
+db.createCollection('poetry')

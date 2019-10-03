@@ -1,0 +1,288 @@
+/*
+ * 自定义论坛样式
+ */
+
+body {
+    /* background-color: #77969a; */
+    background-image:url("./image/homepage_light.png");
+    background-repeat: repeat;
+    background-size:240px 240px;
+
+}
+.register{
+    background-image:url("./image/register2.png");
+
+}
+.register2{
+    background-image:url("./image/register1.jpg") !important;
+
+}
+.header-avatar{
+    width: 35px;
+    height: 35px;
+    margin-top: -6px;
+}
+.header-avatar-big{
+    width: 131px;
+    height: 131px;
+    margin-top: 0px;
+}
+.img-circle {
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    border-radius: 50%;
+}
+/* 
+/* 重写随机背景色
+.bd-rainbow {
+    -webkit-animation: rainbow 8s ease infinite;
+    animation: rainbow 8s ease infinite;
+    background-image: linear-gradient(124deg, #dec02b, #55edf5, #b86bff, #3273dc);
+    background-size: 800% 800%;
+}
+/*重写随机背景色 No 2*/
+/*
+.bd-rainbow-newbee {
+    -webkit-animation: rainbow 8s ease infinite;
+    animation: rainbow 8s ease infinite;
+    background-image: linear-gradient(124deg, #dec02b, #d8da69, #f5e095, #82ff59);
+    background-size: 800% 800%;
+} 
+*/ 
+/* .container{
+    background-color: rgba(0,34,77,.05);
+
+}
+*/
+.navbar{
+    background-color:  rgba(127,169,155,.05) !important;
+
+} 
+/* .navbar-item{
+    width:70px !important;
+    top:-30 px !important;
+    transition: top 10s !important;
+
+} */
+.bg-gray{
+    background-color: #f7f7f7;
+}
+
+.is-underline{
+    background-color:  rgba(127,169,155,.05);
+
+}
+
+#fix_nav{
+    background-color:  rgba(127,169,155,.05);
+    z-index:9999;
+
+}
+
+.nav{width:980px; margin:0 auto;}
+
+.nav li{display:inline-block; *display:inline; *zoom:1; margin:0 10px;}
+
+.nav li a{display:block; padding:5px 10px;text-decoration: none;color: #fff;}
+
+
+.fixed-nav{
+    position: fixed;
+    width:100%;
+    transition: top .5s;
+    top: -60px;
+}
+
+.fixed-nav-appear{top:0;}
+
+.fix_sec{
+position: fixed;
+width:100%;
+top:0;
+z-index: 999;
+transition: top .5s;
+}
+
+.is-noColor{
+    background-color: transparent;
+}
+.fixed-icon:hover{
+    transform:scale(1.3);
+
+}
+.fixed-icon{
+    display:inline-flex;
+    position:absolute;
+    left:-80px;/*这写的太烂了*/
+    margin:auto;
+    justify-content:center;
+    align-items: center;
+    top:5px;
+    height:40px;
+    width:40px;
+    background-color: #CFD8DC;
+    box-shadow:0.2em 0.5em 0.55em #7e8d6e;
+    /* border:1px solid #7e8d6e; */
+    border-radius:1.5em;
+    
+
+
+}
+#icon-top{
+    width:25px !important;
+    height:25px !important;
+
+}
+
+
+
+.qq {
+    font-family: inherit;
+    font-size: 17px;
+    margin-top: 14px;
+    margin-right: 10px;
+    color: #8a7f00;
+  }
+
+
+
+
+
+
+
+
+
+
+  /*以下是二级菜单栏*/
+.sub-menu {
+    border-radius : 3px;
+  }
+  
+  .sub-menu:after , menu:before {
+    display : block;
+    content : ' ';
+  }
+  
+  .sub-menu:after {
+    clear : both;
+  }
+  
+  .sub-menu li {
+    list-style-type : none;
+    background      : linear-gradient(rgba(220,220,255,0.4) 85%, rgba(255,255,255,0.5) 100%);
+  
+    float   : left;
+    cursor  : pointer;
+    padding : 3px 10px;
+    border-top    : 2px solid rgba(200,200,255,0.5);
+    border-bottom : 2px solid rgba(50,50,50,0.4);
+  }
+  
+  .sub-menu li a {
+  
+    display : block;
+    padding : 10px 13px;
+    font-size : 16px;
+    text-decoration : none;
+    border-radius   : 5px;
+    position        : relative;
+    top   : 0;
+    color : #000;			
+    transition : all .4s;
+  }
+  
+  li:hover .popup {
+    top   : -20px;
+    color : #71a0a5;
+    background-color: #000;
+    box-shadow : 0 0 5px 0 rgba(255, 255, 255, 0.7);
+    transition : all .4s;
+  }
+  
+   .popup:after {
+    display  : block;
+    content  : '';
+    position : absolute;
+    top  : 100%;
+    left : 42%;
+    border-style : solid;
+    border-color : transparent;
+    border-width : 5px 5px 0 5px;
+    transition   : all .4s;
+  }
+  
+  li:hover a:after {
+    border-color : white transparent transparent transparent;
+    transition   : all .4s;
+  }
+  
+  
+  .menu2 {
+    width : 550px;
+  }
+  
+   .popup {
+    font-family : georgia;
+    font-size   : 14px;
+    font-style  : italic;
+    text-transform : capitalize;
+  }
+  
+  .menu2 li {
+    border-right  : 1px solid rgba(200,200,255,0.5);
+    border-left   : 1px solid rgba(40,40,40,0.2); 
+  }
+  
+  .selected1 {/*bulmacss 自带有selected 装饰效果 不想要那个*/
+    text-align: center;
+    top   : -10px !important;
+    width:150px;
+    color : #71a0a5 !important;
+    /* background-color: rgb(219, 219, 219) !important;
+    box-shadow : 0 0 5px 0 rgba(255, 255, 255, 0.7) !important; */
+    transition : all .4s !important;
+    background-color: #CFD8DC;
+    box-shadow:0.2em 0.5em 0.55em #7e8d6e;
+    font-family: "Helveica","Hiragino Sans GB","Microsoft Yahei","微软雅黑",Arial,sans-serif;
+    font-weight:bold;
+
+  }
+  
+  .selected1:after {
+    border-color : white transparent transparent transparent !important;
+    transition   : all .2s !important;
+  }
+
+  
+
+  .box-transparent{
+    font-family: "Helveica","Hiragino Sans GB","Microsoft Yahei","微软雅黑",Arial,sans-serif !important;
+
+    background-color:rgba(253, 253, 218, 0.9) !important;
+    overflow:hidden;
+    border-radius:none;
+    border: 21px solid transparent !important;
+	border-image: 1 url('data:image/svg+xml,\
+	                      <svg xmlns="http://www.w3.org/2000/svg" width="3" height="3" fill="#F5F6D4">\
+	                      <polygon points="0,1 1,0 2,0 3,1 3,2 2,3 1,3 0,2" />\
+	                      </svg>') !important;
+	background-clip: padding-box !important;
+    /* background:url("./image/paper.jpg") 0 /cover fixed !important; */
+
+	padding: .2em .3em !important;
+    box-shadow:0px 0px 0px #5a493f !important;/*去掉最外面的边框*/
+	/* max-width: 12em !important; */
+    /* font: 150%/1.6 Baskerville, Palatino, serif !important; */
+    
+    /* filter:blur(4px); */
+
+  }
+  .transp-div{
+    background-color:rgba(256, 256, 256, 0) !important;
+    box-shadow:0px 0px 0px #5a493f !important;/*去掉最外面的边框*/
+
+  }
+
+  
+
+    /*******end  二级菜单栏*************/
