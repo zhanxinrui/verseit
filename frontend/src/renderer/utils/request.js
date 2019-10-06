@@ -27,9 +27,8 @@ request.prototype = {
 
                 };
                 if (localStorage.getItem('Authorization')) {
-                    config.headers.Authorization = localStorage.getItem('Authorization');
+                    config.headers.Authorization = localStorage.getItem('Authorization');//使用默认的token
                 }
-
                 return config;
             }, function (err) {
                 return Promise.reject(err);

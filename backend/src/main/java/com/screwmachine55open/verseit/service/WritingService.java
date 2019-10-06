@@ -1,5 +1,7 @@
 package com.screwmachine55open.verseit.service;
 
+import org.springframework.stereotype.Service;
+
 /**
  * @author ：xrzhan
  * @date ：Created in 2019/5/5 23:01

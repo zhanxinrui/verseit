@@ -59,6 +59,11 @@ public class Result <T> implements  Serializable {
 
     }
 
+    public static <T> Result<T> ok(T data, String token) {
+
+        return new Result(data, token, Code.OK);
+
+    }
     public static <T> Result<T> error(T data, String errorMsg) {
 
         return new Result(data, errorMsg, Code.ERROR);

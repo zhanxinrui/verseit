@@ -24,6 +24,8 @@ import java.util.*;
 import java.util.regex.Pattern;
 import lombok.*;
 
+import static com.screwmachine55open.verseit.util.Result.Code.OK;
+
 /**
  * @author ：xrzhan
  * @date ：Created in 2019/4/8 20:51
@@ -37,10 +39,17 @@ import lombok.*;
 
 @Service
 public class UserServiceImpl implements UserService {
-
+    @Autowired
+    TokenService tokenService;
     @Autowired
     private  UserDao userDao;
 
+    @Override
+    public User findOneById(String id) {
+        System.out.println("found id"+id);
+        return userDao.findById(id).get();
+
+    }
     @Override
 //    @Cacheable(value = "user", key = "#root.targetClass + T(String).valueOf(#userName)")
     public Result<User> getUserByUserName(String userName) {
@@ -75,26 +84,46 @@ public class UserServiceImpl implements UserService {
 //    @CachePut(value = "user", key = "T(String).valueOf(#root.targetClass).concat('-').concat(#user.userName)", unless = "#user eq null or #user.userName eq null")
     @Override
     public User saveUser(User user) {
-        System.out.println("tag2");
         if(!StringUtils.isEmpty(user.getGithubNodeId())){//避免同一github注册多次
             User result =  userDao.findByGithubNodeId(user.getGithubNodeId());
             if(result != null) {
-                System.out.println("there is one!");
-                User userTmp  = user;
+//                System.out.println("there is one!");
+                User userTmp = user;
                 CombineBeans cb = new CombineBeans();
-                user= (User)cb.combineSydwCore(result,user);
+                user = (User) cb.combineSydwCore(user,result);//相同则前者覆盖后者
 
             }
-            if (user.getUserName() == null) {
-                user.setUserName("游客_" + UUID.randomUUID().toString());//因为github用户名可能重复，所以对于首次github登陆的用户分配一个随机的用户名，随后他可以在账号中修改
-                System.out.println("it is a tourist");
-            }
-
         }
+        if(user.getUserId()!=null){
+            User result =  userDao.findByUserId(user.getUserId());
+            if(result != null) {
+                CombineBeans cb = new CombineBeans();
+                user = (User) cb.combineSydwCore(user,result);
+            }
+        }
+        if(user.getUserName()!=null){
+            User result =  userDao.findByUserName(user.getUserName());
+            if(result != null) {
+                CombineBeans cb = new CombineBeans();
+                user = (User) cb.combineSydwCore(user,result);
+            }
+        }
+        if(user.getEmail()!=null){
+            User result = userDao.findByEmail(user.getEmail());
+            if(result != null) {
+                CombineBeans cb = new CombineBeans();
+                user = (User) cb.combineSydwCore(user,result);
+            }
+        }
+        /*补齐工作*/
+        //如果id为空 补齐
         if(StringUtils.isEmpty(user.getUserId())){
             user.setUserId(UUID.randomUUID().toString());//设置id为唯一识别码
         }
-//        user.setCreateTime(DateUtil.getDefaultDateStr());
+        //如果用户名为空 补齐
+        if (user.getUserName() == null) {
+            user.setUserName("游客_" + UUID.randomUUID().toString());//因为github用户名可能重复，所以对于首次github登陆的用户分配一个随机的用户名，随后他可以在账号中修改
+        }
         System.out.println(user.getUserId());
         return userDao.save(user);
     }
@@ -144,14 +173,16 @@ public class UserServiceImpl implements UserService {
     //    @Cacheable(value = "user", key = "#root.targetClass + #param", unless = "#result eq null") 不知道怎么表示param里的值。。
     @Override
     public Result<User> login(Map<String,String> param) {
+        System.out.println("ok now");
+
         User user ;
         Result<User> result = Result.error(null,"操作失败");
         String token = param.getOrDefault("token",null);
         if(StringUtils.isNoneEmpty(token)){
             try {
-                user = JsonUtil.tokenToObject(token,User.class);
+                user = JsonUtil.tokenToObject(token,User.class);//这的token指的是json格式的输入数据
                 result = this.loginUser(user);
-                System.out.println("login"+user);
+                System.out.println("real token"+result.getMessage());
 
             } catch (Exception e) {
                 e.printStackTrace();
@@ -169,12 +200,13 @@ public class UserServiceImpl implements UserService {
             User result = getUserByGithubNodeId(user.getGithubNodeId());
             if(result != null) {
                 System.out.println("result valid");
-                return  Result.ok(result);
+                return  Result.ok(result,tokenService.getToken(result));
             }else{
                 System.out.println("result invalid");
                 return Result.error(null,"操作失败,github登录失败");
             }
         }
+        System.out.println("user:"+user);
         User userResult = userDao.findByEmailOrUserName(user.getEmail(),user.getUserName());
         if(userResult == null){
             System.out.println("账号不存在");
@@ -187,7 +219,8 @@ public class UserServiceImpl implements UserService {
 
 
         }
-        return  Result.ok(userResult);
+        System.out.println("here?");
+        return  Result.ok(user,tokenService.getToken(userResult));
 
     }
     /*前端判断密码正误*/

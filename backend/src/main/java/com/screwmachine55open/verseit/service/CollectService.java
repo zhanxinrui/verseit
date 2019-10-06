@@ -6,6 +6,7 @@ import com.screwmachine55open.verseit.entity.Poem;
 import com.screwmachine55open.verseit.util.Result;
 import org.springframework.data.domain.Page;
 //import org.springframework.data.domain;
+import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -48,7 +49,7 @@ public interface CollectService {
      * 获取指定的他人收藏文件夹的诗
      *
      * */
-    ArrayList<String> getCollectInDirWithVis(String userName,String collectDir) ;
+    ArrayList<Poem> getCollectInDirWithVis(String userName,String collectDir) ;
 
 
     /**
@@ -67,7 +68,7 @@ public interface CollectService {
     /**
      * 添加收藏文件夹
      * */
-    String addCollectDir(String userName, String collectDir) ;
+    String addCollectDir(String userName, String collectDir)throws Exception ;
     /**
      * 在指定收藏文件夹下添加诗歌
      * */

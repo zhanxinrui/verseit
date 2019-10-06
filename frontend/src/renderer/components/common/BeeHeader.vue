@@ -281,7 +281,7 @@ export default {
 
     auth() {
       console.log("invoke auth");
-      let code = getQueryString("code");
+      let code = getQueryString("code");//如果包含有code 说明使用github登录
       //github返回code码
       if (!_.isEmpty(code)) {
         console.log("test production");
@@ -301,8 +301,7 @@ export default {
             this.login(loginJson);
           });
         });
-      }
-    },
+      }    },
     menuHover() {
       var navbarBurgers = $(".navbar-start .navbar-item");
       var tmp = new Array();
@@ -345,9 +344,11 @@ export default {
     auto() {
       // alert("asdf"+iconsrc);]
       // alert("icon_src",icon_src);
-      if (!_.isEmpty(getToken())) {
+      //如果token为空就应该跳转。
+      //尝试使用token进行登录，如果没有token或没登录上就返回主页。
+
+      if (!$store.state.Authorization) {
         this.isLogin = true; //应该放到vuex中
-        console.log("is login a ha!!!");
         console.log("is log?", this.isLogin);
 
         //this.user.email = getToken();
@@ -375,16 +376,17 @@ export default {
         token: EP(loginJson)
       };
       userApi.login(token, response => {
-        console.log("responsedata:", response.data);
         loginJsonCopy.id = response.data.userId;
         console.log("loginjson!:", loginJsonCopy);
-        setToken(EP(loginJsonCopy));
+        // setToken(EP(loginJsonCopy));  token不放到cookie中
         setInfo(
           JSON.stringify({
             userName: response.data.userName,
             avatarPath: response.data.avatarPath
           })
         );
+        this.userToken = response.message;
+        this.changeLogin({Authorization:this.userToken});
         this.getUserInfo(getUserName());
         console.log("info", this.userInfo);
         //setInfo(JSON.stringify({ userName:"hah" }));

@@ -138,32 +138,39 @@ export default {
   methods: {
     ...mapMutations(['changeLogin']),
     login() {
-        let token = {
-            email:this.email,
-            userName:this.email,
-            password:this.password
-        }
-      // let token = {
-      //   token: EP({
-      //     email: this.email,
-      //     userName: this.email,
-      //     password: this.password
-      //   })
-      // };
+        // alert("ok");
+        // let token = {
+        //     email:this.email,
+        //     userName:this.userName,
+        //     password:this.password
+        // }
+      let token = {
+        token: EP({
+          email: this.email,
+          userName: this.userName,
+          password: this.password
+        })
+      };
+      console.log("login info",token);
       userApi.login(token, response => {
-        console.log("resdata："+response.data);
-        this.userToken = 'Bearer '+ response.data.data.body.token;
-        this.changeLogin({Authorization:this.userToken});
 
-        // setToken(
-        //   EP({
-        //     email: this.email,
-        //     userName: this.email,
-        //     password: this.password,
-        //     id: response.data.userId,
-        //     //avatarPath
-        //   })
-        // );
+        // if(response.code)
+        console.log("resdata："+response.code);
+        // if(response.code==-1) 
+        //需要考虑表单验证问题
+        // console.log("restype："+Object.getOwnPropertyNames(response.data));
+        this.userToken = response.message;
+        this.changeLogin({Authorization:this.userToken});
+        console.log("usertoken",this.userToken);
+        setInfo(
+          EP({
+            email: this.email,
+            userName: this.email,
+            // password: this.password,
+            id: response.data.userId,
+            //avatarPath
+          })
+        );
         // setInfo(JSON.stringify({ userName: response.data.userName }));
 
         //this.$router.push("/");

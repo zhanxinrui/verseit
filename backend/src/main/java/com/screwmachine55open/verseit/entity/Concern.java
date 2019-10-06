@@ -26,6 +26,11 @@ public class Concern {
     @ApiModelProperty(value = "可见性")
     private  Boolean visible;
 
-    @ApiModelProperty(value = "分类下的所有关注人")
-    private Collection<String> persons= new LinkedList<>();
+    @ApiModelProperty(value = "文件夹类型")
+    private String type;// poet or user.
+    @ApiModelProperty(value = "分类下的所有关注诗人")
+    private Collection<String> poets= new LinkedList<>();
+    @ApiModelProperty(value = "分类下的所有关注用户")
+    private Collection<String> users= new LinkedList<>();
+
 }

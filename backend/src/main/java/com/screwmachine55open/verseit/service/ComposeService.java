@@ -5,6 +5,7 @@ import com.screwmachine55open.verseit.entity.Compose;
 import com.screwmachine55open.verseit.entity.Poem;
 import com.screwmachine55open.verseit.util.Result;
 import org.springframework.data.domain.Page;
+import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;

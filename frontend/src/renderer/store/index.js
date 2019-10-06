@@ -20,7 +20,7 @@ export default new Vuex.Store({
             state.Authorization = user.Authorization;
             localStorage.setItem('Authorization', user.Authorization);
         }
-    }
+    },
   actions,
   getters,
   modules: {

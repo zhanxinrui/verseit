@@ -66,9 +66,11 @@ public class BaseController {
         return token.getOrDefault(TOKEN_USER_ID,null);
     }
     public String getUserName(){
+
         Map<String,String>token = JsonUtil.tokenToObject(getToken(), Map.class);
         return token.getOrDefault(TOKEN_USER_NAME, null);
     }
+
 
 
 }

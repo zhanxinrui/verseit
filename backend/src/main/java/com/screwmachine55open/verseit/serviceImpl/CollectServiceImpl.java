@@ -7,6 +7,7 @@ import com.screwmachine55open.verseit.dao.UserDao;
 import com.screwmachine55open.verseit.entity.Collect;
 import com.screwmachine55open.verseit.entity.Poem;
 import com.screwmachine55open.verseit.entity.User;
+import com.screwmachine55open.verseit.service.CollectService;
 import com.screwmachine55open.verseit.util.MailUtil;
 import com.screwmachine55open.verseit.util.Result;
 import org.bson.types.ObjectId;
@@ -37,15 +38,13 @@ import java.util.regex.Pattern;
  * @version: $version$
  */
 @Service
-public class CollectServiceImpl {
+public class CollectServiceImpl implements CollectService {
     @Autowired
     private UserDao userDao;
     @Autowired
-    PoemDao poemDao;
-    //    @Autowired
-//    MongoOperations mongoOperations;
-    @Autowired
-    private MongoTemplate mongoTemplate;
+    private PoemDao poemDao;
+//    @Autowired
+//    private MongoTemplate mongoTemplate;
     /**
      * 获取指定收藏文件夹的诗歌
      * */
@@ -324,7 +323,9 @@ public class CollectServiceImpl {
      * 在指定收藏文件夹下删除诗歌
      * @fixme
      * */
-    public String delCollectInDir(String userName, String collectDir, String poemId) {
+    @Override
+    public String delCollectIndir(String userName, String collectDir, String poemId) {
+//  public String delCollectInDir(String userName, String collectDir, String poemId) {
         User user = userDao.findByUserName(userName);
         try {
             Collection<Collect> queryRes = user.getCollects();

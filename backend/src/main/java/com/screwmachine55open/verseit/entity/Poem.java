@@ -52,4 +52,8 @@ public class Poem {
     @ApiModelProperty(value = "评论")
     private Collection<Comment> comments=new LinkedList<>();
 
+    @ApiModelProperty(value = "诗歌类型")
+    private String type;
+
+
 }

@@ -7,6 +7,7 @@ import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import javax.persistence.Column;
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.LinkedList;
@@ -37,6 +38,7 @@ public class User implements Serializable {//缓存必须将对象序列化
 
     @Indexed
     @ApiModelProperty(value = "用户名")
+    @Column(unique = true)
     private String userName;
 
     @ApiModelProperty(value = "性别")
@@ -46,6 +48,7 @@ public class User implements Serializable {//缓存必须将对象序列化
     private String phone;
 
     @ApiModelProperty(value = "邮箱")
+    @Column(unique = true)
     private  String email;
 
     @ApiModelProperty(value = "自我简介")

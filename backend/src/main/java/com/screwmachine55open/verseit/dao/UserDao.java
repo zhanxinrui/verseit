@@ -27,4 +27,5 @@ public interface  UserDao extends MongoRepository<User,String> {
     User findByGithubNodeIdOrUserName(String nodeId, String userName);
     User findAllByGithubNodeId(String nodeId);
     User deleteByUserName(String userName);
+    User findByEmail(String email);
 }
