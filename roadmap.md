@@ -101,5 +101,4 @@
 
 ### <center style="color:#fff;background:rgb(170,153,153);height:30px;font-size:18px"> 写在最后</center>
 
-挺难的，多上点心吧。。。。
-尤其工作的童靴。。。
+- yup
