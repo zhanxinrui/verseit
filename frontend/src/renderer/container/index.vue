@@ -42,6 +42,7 @@ import BeeHeader from "@/components/common/BeeHeader";
 import BeeFooter from "@/components/common/BeeFooter";
 import Section from "@/components/common/Section";
 import Skeleton from "@/components/common/Skeleton";
+
 import _ from "lodash";
 import { sampleBackGroundColor } from "@/utils";
 export default {
@@ -64,7 +65,8 @@ export default {
 
   destroyed() {},
   mounted() {
-    this.getBlogs();
+    this.goPub();
+    // this.getBlogs();
     this.selectedChange();
   },
   methods: {
@@ -91,24 +93,27 @@ export default {
     goBlog(blog) {
       this.$router.push({ path: "/blog/" + blog.id });
     },
+    goPub(){
+      this.$router.push({path:"/pubPoem"});
+    },
     getBlogs() {
-      this.blogLoadingOk = false;
-      let searchBlog = {};
-      _.isEmpty(this.tag)
-        ? (searchBlog.tag = "all")
-        : (searchBlog.tag = this.tag);
+      // this.blogLoadingOk = false;
+      // let searchBlog = {};
+      // _.isEmpty(this.tag)
+      //   ? (searchBlog.tag = "all")
+      //   : (searchBlog.tag = this.tag);
 
-      !_.isEmpty(this.type) ? (searchBlog.sort = this.type) : searchBlog;
-      this.$http
-        .post("/blog/getBlogByTag", searchBlog, {
-          headers: {
-            Accept: "application/json;charset=UTF-8"
-          }
-        })
-        .then(res => {
-          this.blogLoadingOk = true;
-          this.blogs = res.data.data.content;
-        });
+      // !_.isEmpty(this.type) ? (searchBlog.sort = this.type) : searchBlog;
+      // this.$http
+      //   .post("/blog/getBlogByTag", searchBlog, {
+      //     headers: {
+      //       Accept: "application/json;charset=UTF-8"
+      //     }
+      //   })
+      //   .then(res => {
+      //     this.blogLoadingOk = true;
+      //     this.blogs = res.data.data.content;
+      //   });
     },
     sampleBackGroundColor() {
       return sampleBackGroundColor();

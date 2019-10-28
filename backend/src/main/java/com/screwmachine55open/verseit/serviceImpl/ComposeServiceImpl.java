@@ -33,8 +33,8 @@ public class ComposeServiceImpl {
     private PoemDao poemDao;
     //    @Autowired
 //    MongoOperations mongoOperations;
-    @Autowired
-    private MongoTemplate mongoTemplate;
+//    @Autowired
+//    private MongoTemplate mongoTemplate;
 
     /**
      * 获取指定创作文件夹的诗歌

@@ -69,7 +69,7 @@
               <router-link class="navbar-item is-tab" to="/personal" name="个人">
                 <img v-bind:src="personSrc" width="28" height="28" alt="square">
               </router-link>
-              <router-link class="navbar-item is-tab" to="/setting" name="设置">
+              <router-link class="navbar-item is-tab " to="/setting" name="设置">
                 <img v-bind:src="setSrc" width="28" height="28" alt="square">
               </router-link>
             </div>
@@ -267,15 +267,20 @@ export default {
 
       // Get all "navbar-burger" elements
       var navbarBurgers = $(".navbar-start .navbar-item");
-      console.log("nabvsdkflajs", navbarBurgers);
+      console.log("navbarLength", navbarBurgers);
+      console.log("name",name);
+
       for (var i = 0; i < navbarBurgers.length; i++) {
-        console.log("eacj aere", navbarBurgers[i]);
+        // console.log("eacj aere", navbarBurgers[i]);
         // var $temp = $navbarBurgers[i];
-        console.log("vallll:", $(navbarBurgers[i]).attr("name"));
-        if ($(navbarBurgers[i]).attr("name") == "诗阁")
+        // console.log("vallll:", $(navbarBurgers[i]).attr("name"));
+        console.log("now item",name)
+        while ($(navbarBurgers[i]).attr("name") != name &&$(navbarBurgers[i]).hasClass("is-active"))
           $(navbarBurgers[i]).removeClass("is-active");
-        if ($(navbarBurgers[i]).attr("name") == name)
+
+        if ($(navbarBurgers[i]).attr("name") == name && !$(navbarBurgers[i]).hasClass("is-active"))
           $(navbarBurgers[i]).addClass("is-active");
+
       }
     },
 
@@ -364,11 +369,8 @@ export default {
           console.log(this.userInfo.userName);
         }
         this.$forceUpdate();
-
         return;
-      }
-
-      this.isLogin = false;
+      }else this.isLogin = false;
     },
     login(loginJson) {
       let loginJsonCopy = { ...loginJson }; //...将数组拆成单个
@@ -391,6 +393,7 @@ export default {
         console.log("info", this.userInfo);
         //setInfo(JSON.stringify({ userName:"hah" }));
         window.location.href = "/";
+        this.isLogin = true;
         //vm.isLogin = true;
         //this.$router.push("/");
         //this.$forceUpdate();

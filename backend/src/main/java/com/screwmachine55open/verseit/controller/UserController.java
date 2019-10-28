@@ -31,7 +31,6 @@ import java.util.Map;
 
         @Autowired
         UserServiceImpl userService;
-
         @RequestMapping(value = "/register", method = RequestMethod.POST,consumes = "application/json")
         public Result<User> register(@RequestBody User user){
             System.out.println("register:"+user);
@@ -61,7 +60,7 @@ import java.util.Map;
         public  Result<User> login(@RequestBody Map<String,String> param){
             System.out.println("login:"+param);
             Result<User> result = userService.login(param);
-//            System.out.println("result:"+result.getMessage());
+            System.out.println("result:"+result.getMessage());
             return userService.login(param);//应该涉及到怎么把token返回
         }
 
